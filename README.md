@@ -1,5 +1,20 @@
 # PETS
+
 This is our super first api page in React!
+
+## GOLDEN RULES:
+
+### Quality checks:
+
+1. Nomenclature: files, components, variables and constants.
+2. Language: English for the code and Spanish for the user.
+3. Code formatting.
+4. Browser console (F12): no "error" or "warning" messages.
+
+### GIT:
+
+1. Follow the basic steps.
+2. Align the local repository with the remote repository: pull changes from the remote repository BEFORE pushing new changes from the local repository.
 
 # Getting Started with Create React App
 
