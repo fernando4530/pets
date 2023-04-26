@@ -2,6 +2,8 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+
 function App() {
   return (
     <div className="App">
@@ -12,6 +14,9 @@ function App() {
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#features">Features</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <NavDropdown title="PERROS" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Razas</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Container>
       </Navbar>
