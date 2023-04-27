@@ -10,6 +10,10 @@ function App() {
       <Navbar bg="primary" variant="dark">
         <Container>
           <Nav className="me-auto">
+            <NavDropdown title="GATOS" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Razas</NavDropdown.Item>
+              </NavDropdown>
+
             <NavDropdown title="PERROS" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Razas</NavDropdown.Item>
             </NavDropdown>
@@ -20,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
