@@ -9,11 +9,7 @@ function App() {
     <div className="App">
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
             <NavDropdown title="PERROS" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Razas</NavDropdown.Item>
             </NavDropdown>
