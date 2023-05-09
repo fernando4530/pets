@@ -16,7 +16,7 @@ function App() {
             </NavDropdown>
 
             <NavDropdown title="PERROS" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Razas</NavDropdown.Item>
+              <NavDropdown.Item href="/breeds">Razas</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>
