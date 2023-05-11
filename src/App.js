@@ -3,8 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Routes, Route } from "react-router-dom";
-import CatsBreeds from "./Components/CatsBreeds";
-import DogsBreeds from " ./components/DogsBreeds";
+import CatsBreeds from "./components/CatsBreeds";
+import DogsBreeds from "./components/DogsBreeds";
 
 function App() {
   return (
