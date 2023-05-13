@@ -21,29 +21,23 @@ function Breeds() {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    if (selectedBreed) {
-      const selectedBreedId = breeds.find(
-        (breed) => breed.name === selectedBreed
-      )?.id;
-      console.log("selectedBreedId:", selectedBreedId);
-      axios
-        .get(
-          `https://api.thedogapi.com/v1/images/search?limit=100&breed_id=${selectedBreedId}`
-        )
-        .then((response) => {
-          setBreedImages(response.data);
-          console.log("imagenes de razas cargadas:", response.data);
-        })
-        .catch((error) => console.log(error));
-    } else {
-      setBreedImages([]);
-    }
-  }, [selectedBreed, breeds]);
-
   const handleChange = (event) => {
     setSelectedBreed(event.target.value);
     console.log("raza seleccionada:", event.target.value);
+
+    const selectedBreedId = breeds.find(
+      (breed) => breed.name === event.target.value
+    )?.id;
+    console.log("selectedBreedId:", selectedBreedId);
+    axios
+      .get(
+        `https://api.thedogapi.com/v1/images/search?limit=100&breed_id=${selectedBreedId}`
+      )
+      .then((response) => {
+        setBreedImages(response.data);
+        console.log("imagenes de razas cargadas:", response.data);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
