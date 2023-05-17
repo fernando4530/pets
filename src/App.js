@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Routes, Route } from "react-router-dom";
 import CatsBreeds from "./components/CatsBreeds";
 import DogsBreeds from "./components/DogsBreeds";
+import WeightComparison from "./components/WeightComparison";
 
 function App() {
   return (
@@ -19,12 +20,15 @@ function App() {
             <NavDropdown title="PERROS" id="basic-nav-dropdown">
               <NavDropdown.Item href="/dogsbreeds">Razas</NavDropdown.Item>
             </NavDropdown>
+
+            <a className="nav-link active" aria-current="page" href="/comparisionweight">Comparar Peso</a>
           </Nav>
         </Container>
       </Navbar>
       <Routes>
         <Route path="/catsbreeds" element={<CatsBreeds />} />
         <Route path="/dogsbreeds" element={<DogsBreeds />} />
+        <Route path="/comparisionweight" element={<WeightComparison />} />
       </Routes>
     </div>
   );
