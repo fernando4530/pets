@@ -2,9 +2,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import CatsBreeds from "./components/CatsBreeds";
 import DogsBreeds from "./components/DogsBreeds";
+import BreedLongevity from "./components/BreedLongevity";
 
 function App() {
   return (
@@ -19,12 +20,17 @@ function App() {
             <NavDropdown title="PERROS" id="basic-nav-dropdown">
               <NavDropdown.Item href="/dogsbreeds">Razas</NavDropdown.Item>
             </NavDropdown>
+
+            <Nav.Link as={NavLink} to="/longevidad">
+              LONGEVIDAD
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
       <Routes>
         <Route path="/catsbreeds" element={<CatsBreeds />} />
         <Route path="/dogsbreeds" element={<DogsBreeds />} />
+        <Route path="/longevidad" element={<BreedLongevity />} />
       </Routes>
     </div>
   );
