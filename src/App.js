@@ -21,7 +21,13 @@ function App() {
               <NavDropdown.Item href="/dogsbreeds">Razas</NavDropdown.Item>
             </NavDropdown>
 
-            <a className="nav-link active" aria-current="page" href="/comparisionweight">Comparar Peso</a>
+            <a
+              className="nav-link active"
+              aria-current="page"
+              href="/comparisionweight"
+            >
+              Comparar Peso
+            </a>
           </Nav>
         </Container>
       </Navbar>

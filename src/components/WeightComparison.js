@@ -10,10 +10,10 @@ import Col from "react-bootstrap/Col";
 function WeightComparison() {
   const [catBreeds, setCatBreeds] = useState([]);
   const [dogBreeds, setDogBreeds] = useState([]);
-  const [selectedCatBreed1, setSelectedCatBreed1] = useState("");
-  const [selectedCatBreed2, setSelectedCatBreed2] = useState("");
-  const [selectedDogBreed1, setSelectedDogBreed1] = useState("");
-  const [selectedDogBreed2, setSelectedDogBreed2] = useState("");
+  const [selectedCatBreed1, setSelectedCatBreed1] = useState({});
+  const [selectedCatBreed2, setSelectedCatBreed2] = useState({});
+  const [selectedDogBreed1, setSelectedDogBreed1] = useState({});
+  const [selectedDogBreed2, setSelectedDogBreed2] = useState({});
   const [catBreed1Weight, setCatBreed1Weight] = useState(0);
   const [catBreed2Weight, setCatBreed2Weight] = useState(0);
   const [dogBreed1Weight, setDogBreed1Weight] = useState(0);
@@ -51,6 +51,7 @@ function WeightComparison() {
       .get(`https://api.thecatapi.com/v1/breeds/${selectedCatBreed1Id}`)
       .then((response) => {
         setCatBreed1Weight(response.data.weight.metric);
+        setSelectedCatBreed1(response.data);
         console.log("Peso de la raza de gato 1:", response.data.weight.metric);
       })
       .catch((error) => console.log(error));
@@ -68,13 +69,13 @@ function WeightComparison() {
       .get(`https://api.thecatapi.com/v1/breeds/${selectedCatBreed2Id}`)
       .then((response) => {
         setCatBreed2Weight(response.data.weight.metric);
+        setSelectedCatBreed2(response.data);
         console.log("Peso de la raza de gato 2:", response.data.weight.metric);
       })
       .catch((error) => console.log(error));
   };
 
   const handleDogBreed1Change = (event) => {
-    setSelectedDogBreed1(event.target.value);
     console.log("Raza de perro 1 seleccionada:", event.target.value);
 
     const selectedDogBreed1Id = dogBreeds.find(
@@ -85,6 +86,7 @@ function WeightComparison() {
       .get(`https://api.thedogapi.com/v1/breeds/${selectedDogBreed1Id}`)
       .then((response) => {
         setDogBreed1Weight(response.data.weight.metric);
+        setSelectedDogBreed1(response.data);
         console.log("Peso de la raza de perro 1:", response.data.weight.metric);
       })
       .catch((error) => console.log(error));
@@ -102,6 +104,7 @@ function WeightComparison() {
       .get(`https://api.thedogapi.com/v1/breeds/${selectedDogBreed2Id}`)
       .then((response) => {
         setDogBreed2Weight(response.data.weight.metric);
+        setSelectedDogBreed2(response.data);
         console.log("Peso de la raza de perro 2:", response.data.weight.metric);
       })
       .catch((error) => console.log(error));
@@ -166,9 +169,14 @@ function WeightComparison() {
           </Row>
           <div>
             {heavierCatBreed && (
-              <p className="text-center">
-                La raza de gato más pesada es: {heavierCatBreed}
-              </p>
+              <div>
+                <p className="text-center">
+                  La raza de gato más pesada es: {heavierCatBreed.name}
+                </p>
+                <p className="text-center">
+                  Peso: {heavierCatBreed.weight.metric}
+                </p>
+              </div>
             )}
           </div>
           <h3 className="text-center">
@@ -206,9 +214,14 @@ function WeightComparison() {
           </Row>
           <div>
             {heavierDogBreed && (
-              <p className="text-center">
-                La raza de perro más pesada es: {heavierDogBreed}
-              </p>
+              <div>
+                <p className="text-center">
+                  La raza de perro más pesada es: {heavierDogBreed.name}
+                </p>
+                <p className="text-center">
+                  Peso: {heavierDogBreed.weight.metric}
+                </p>
+              </div>
             )}
           </div>
           <Row className="justify-content-center">
