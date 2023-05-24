@@ -50,9 +50,11 @@ function WeightComparison() {
     axios
       .get(`https://api.thecatapi.com/v1/breeds/${selectedCatBreed1Id}`)
       .then((response) => {
-        setCatBreed1Weight(response.data.weight.metric);
+        const weightRange = response.data.weight.metric.split(" - ");
+        const averageWeight = calculateAverageWeight(weightRange);
+        setCatBreed1Weight(averageWeight);
         setSelectedCatBreed1(response.data);
-        console.log("Peso de la raza de gato 1:", response.data.weight.metric);
+        console.log("Peso de la raza de gato 1:", averageWeight);
       })
       .catch((error) => console.log(error));
   };
@@ -68,9 +70,11 @@ function WeightComparison() {
     axios
       .get(`https://api.thecatapi.com/v1/breeds/${selectedCatBreed2Id}`)
       .then((response) => {
-        setCatBreed2Weight(response.data.weight.metric);
+        const weightRange = response.data.weight.metric.split(" - ");
+        const averageWeight = calculateAverageWeight(weightRange);
+        setCatBreed2Weight(averageWeight);
         setSelectedCatBreed2(response.data);
-        console.log("Peso de la raza de gato 2:", response.data.weight.metric);
+        console.log("Peso de la raza de gato 2:", averageWeight);
       })
       .catch((error) => console.log(error));
   };
@@ -85,9 +89,11 @@ function WeightComparison() {
     axios
       .get(`https://api.thedogapi.com/v1/breeds/${selectedDogBreed1Id}`)
       .then((response) => {
-        setDogBreed1Weight(response.data.weight.metric);
+        const weightRange = response.data.weight.metric.split(" - ");
+        const averageWeight = calculateAverageWeight(weightRange);
+        setDogBreed1Weight(averageWeight);
         setSelectedDogBreed1(response.data);
-        console.log("Peso de la raza de perro 1:", response.data.weight.metric);
+        console.log("Peso de la raza de perro 1:", averageWeight);
       })
       .catch((error) => console.log(error));
   };
@@ -103,32 +109,47 @@ function WeightComparison() {
     axios
       .get(`https://api.thedogapi.com/v1/breeds/${selectedDogBreed2Id}`)
       .then((response) => {
-        setDogBreed2Weight(response.data.weight.metric);
+        const weightRange = response.data.weight.metric.split(" - ");
+        const averageWeight = calculateAverageWeight(weightRange);
+        setDogBreed2Weight(averageWeight);
         setSelectedDogBreed2(response.data);
-        console.log("Peso de la raza de perro 2:", response.data.weight.metric);
+        console.log("Peso de la raza de perro 2:", averageWeight);
       })
       .catch((error) => console.log(error));
   };
 
   const handleComparison = () => {
     if (catBreed1Weight && catBreed2Weight) {
-      if (catBreed1Weight > catBreed2Weight) {
+      if (parseFloat(catBreed1Weight) > parseFloat(catBreed2Weight)) {
         setHeavierCatBreed(selectedCatBreed1);
-      } else if (catBreed1Weight < catBreed2Weight) {
+      } else if (parseFloat(catBreed1Weight) < parseFloat(catBreed2Weight)) {
         setHeavierCatBreed(selectedCatBreed2);
       } else {
         setHeavierCatBreed("Las dos razas de gatos tienen el mismo peso");
       }
     }
-
+  
     if (dogBreed1Weight && dogBreed2Weight) {
-      if (dogBreed1Weight > dogBreed2Weight) {
+      if (parseFloat(dogBreed1Weight) > parseFloat(dogBreed2Weight)) {
         setHeavierDogBreed(selectedDogBreed1);
-      } else if (dogBreed1Weight < dogBreed2Weight) {
+      } else if (parseFloat(dogBreed1Weight) < parseFloat(dogBreed2Weight)) {
         setHeavierDogBreed(selectedDogBreed2);
       } else {
         setHeavierDogBreed("Las dos razas de perros tienen el mismo peso");
       }
+    }
+  };
+
+  const calculateAverageWeight = (weightRange) => {
+    const minWeight = parseFloat(weightRange[0]);
+    const maxWeight = parseFloat(weightRange[1]);
+    
+    if (isNaN(minWeight) && isNaN(maxWeight)) {
+      // Si tanto el peso mínimo como el máximo no son números, se trata de un único peso
+      return weightRange[0];
+    } else {
+      const averageWeight = (minWeight + maxWeight) / 2;
+      return averageWeight.toFixed(2); // Redondear a 2 decimales
     }
   };
 
@@ -168,20 +189,18 @@ function WeightComparison() {
             </Col>
           </Row>
           <div>
-            {heavierCatBreed && (
+            {heavierCatBreed && typeof heavierCatBreed !== "string" && (
               <div>
                 <p className="text-center">
                   La raza de gato más pesada es: {heavierCatBreed.name}
                 </p>
                 <p className="text-center">
-                  Peso: {heavierCatBreed.weight.metric}
+                  Peso: {calculateAverageWeight(heavierCatBreed.weight.metric.split(" - "))} Kg.
                 </p>
               </div>
             )}
           </div>
-          <h3 className="text-center">
-            Comparación de peso de razas de perros
-          </h3>
+          <h3 className="text-center">Comparación de peso de razas de perros</h3>
           <Row className="justify-content-center">
             <Col sm={6} md={4}>
               <Form.Select
@@ -213,28 +232,22 @@ function WeightComparison() {
             </Col>
           </Row>
           <div>
-            {heavierDogBreed && (
+            {heavierDogBreed && typeof heavierDogBreed !== "string" && (
               <div>
                 <p className="text-center">
                   La raza de perro más pesada es: {heavierDogBreed.name}
                 </p>
                 <p className="text-center">
-                  Peso: {heavierDogBreed.weight.metric}
+                  Peso: {calculateAverageWeight(heavierDogBreed.weight.metric.split(" - "))} Kg.
                 </p>
               </div>
             )}
           </div>
-          <Row className="justify-content-center">
-            <Col sm={6} md={4}>
-              <Button
-                variant="primary"
-                onClick={handleComparison}
-                className="mt-2 w-100"
-              >
-                Comparar
-              </Button>
-            </Col>
-          </Row>
+          <div className="text-center">
+            <Button variant="primary" onClick={handleComparison}>
+              Comparar Peso
+            </Button>
+          </div>
         </Card>
       </Container>
     </div>
