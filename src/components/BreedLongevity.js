@@ -25,6 +25,7 @@ const BreedLongevity = () => {
       (breed) => breed.life_span === age
     );
     const totalDogs = filteredDogs.length;
+    console.log(totalDogs);
     let totalAge = 0;
 
     filteredDogs.forEach((dog) => {
@@ -32,10 +33,12 @@ const BreedLongevity = () => {
       const minAge = parseInt(lifeSpan[0]);
       const maxAge = parseInt(lifeSpan[2]);
       const average = (minAge + maxAge) / 2;
+      console.log(average);
       totalAge += average;
     });
 
     const averageAge = totalAge / totalDogs;
+    console.log(averageAge);
     setDogAgeAverage(averageAge.toFixed(1));
     console.log(
       "Promedio de esperanza de vida de perros:",
@@ -165,7 +168,7 @@ const BreedLongevity = () => {
         <Col>
           <DropdownButton
             id="dogAgeDropdown"
-            title={`Edad: Perros de ${selectedDogAge}`}
+            title={`Edades: Perros de ${selectedDogAge}`}
             className="mr-3"
           >
             {Object.values(dogBreeds)
