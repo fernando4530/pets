@@ -2,9 +2,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import CatsBreeds from "./components/CatsBreeds";
 import DogsBreeds from "./components/DogsBreeds";
+import BreedLongevity from "./components/BreedLongevity";
 import WeightComparison from "./components/WeightComparison";
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
               <NavDropdown.Item href="/dogsbreeds">Razas</NavDropdown.Item>
             </NavDropdown>
 
+            <Nav.Link as={NavLink} to="/longevidad">
+              LONGEVIDAD
+            </Nav.Link>
             <a
               className="nav-link active"
               aria-current="page"
@@ -34,6 +38,7 @@ function App() {
       <Routes>
         <Route path="/catsbreeds" element={<CatsBreeds />} />
         <Route path="/dogsbreeds" element={<DogsBreeds />} />
+        <Route path="/longevidad" element={<BreedLongevity />} />
         <Route path="/comparisionweight" element={<WeightComparison />} />
       </Routes>
     </div>

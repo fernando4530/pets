@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
 
-function CatsBreeds() {
+const CatsBreeds = () => {
   const [breeds, setBreeds] = useState([]);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [breedImages, setBreedImages] = useState([]);
@@ -93,6 +93,6 @@ function CatsBreeds() {
       )}
     </Container>
   );
-}
+};
 
 export default CatsBreeds;
