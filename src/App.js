@@ -6,6 +6,7 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import CatsBreeds from "./components/CatsBreeds";
 import DogsBreeds from "./components/DogsBreeds";
 import BreedLongevity from "./components/BreedLongevity";
+import WeightComparison from "./components/WeightComparison";
 
 function App() {
   return (
@@ -24,6 +25,13 @@ function App() {
             <Nav.Link as={NavLink} to="/longevidad">
               LONGEVIDAD
             </Nav.Link>
+            <a
+              className="nav-link active"
+              aria-current="page"
+              href="/comparisionweight"
+            >
+              Comparar Peso
+            </a>
           </Nav>
         </Container>
       </Navbar>
@@ -31,6 +39,7 @@ function App() {
         <Route path="/catsbreeds" element={<CatsBreeds />} />
         <Route path="/dogsbreeds" element={<DogsBreeds />} />
         <Route path="/longevidad" element={<BreedLongevity />} />
+        <Route path="/comparisionweight" element={<WeightComparison />} />
       </Routes>
     </div>
   );
