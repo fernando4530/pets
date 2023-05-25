@@ -151,7 +151,12 @@ function WeightComparison() {
       const averageWeight = (minWeight + maxWeight) / 2;
       return averageWeight.toFixed(2); // Redondear a 2 decimales
     }
+
   };
+
+  const getSplit = (metric) => {
+    return metric.split(" - ")
+  }
 
   return (
     <div>
@@ -195,7 +200,7 @@ function WeightComparison() {
                   La raza de gato más pesada es: {heavierCatBreed.name}
                 </p>
                 <p className="text-center">
-                  Peso: {calculateAverageWeight(heavierCatBreed.weight.metric.split(" - "))} Kg.
+                  Peso: {calculateAverageWeight(getSplit(heavierCatBreed.weight.metric))} Kg.
                 </p>
               </div>
             )}
@@ -238,7 +243,7 @@ function WeightComparison() {
                   La raza de perro más pesada es: {heavierDogBreed.name}
                 </p>
                 <p className="text-center">
-                  Peso: {calculateAverageWeight(heavierDogBreed.weight.metric.split(" - "))} Kg.
+                  Peso: {calculateAverageWeight(getSplit(heavierDogBreed.weight.metric))} Kg.
                 </p>
               </div>
             )}
