@@ -8,6 +8,7 @@ import DogsBreeds from "./components/DogsBreeds";
 import BreedLongevity from "./components/BreedLongevity";
 import WeightComparison from "./components/WeightComparison";
 import CatsInfo from "./components/CatsInfo";
+import MyDog from "./components/MyDog";
 
 function App() {
   return (
@@ -18,11 +19,9 @@ function App() {
             <NavDropdown title="GATOS" id="basic-nav-dropdown">
               <NavDropdown.Item href="/catsbreeds">Razas</NavDropdown.Item>
             </NavDropdown>
-
             <NavDropdown title="PERROS" id="basic-nav-dropdown">
               <NavDropdown.Item href="/dogsbreeds">Razas</NavDropdown.Item>
             </NavDropdown>
-
             <Nav.Link as={NavLink} to="/breedlongevity">
               LONGEVIDAD
             </Nav.Link>
@@ -36,6 +35,9 @@ function App() {
             <Nav.Link as={NavLink} to="/catsinfo">
               Info Gatuna
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/mydog">
+              Mi Perro
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -45,6 +47,7 @@ function App() {
         <Route path="/breedlongevity" element={<BreedLongevity />} />
         <Route path="/comparisionweight" element={<WeightComparison />} />
         <Route path="/catsinfo" element={<CatsInfo />} />
+        <Route path="/mydog" element={<MyDog />} />
       </Routes>
     </div>
   );

@@ -1,0 +1,92 @@
+const translateTemperament = (temperament) => {
+  const translation = {
+    // ...traducciones Aqui...
+    Alert: "Alerta",
+    Stubborn: "Testarudo",
+    Curious: "Curioso",
+    Playful: "Juguetón",
+    Adventurous: "Aventurero",
+    Active: "Activo",
+    Aloof: "Distante",
+    Clownish: "Payaso",
+    Happy: "Feliz",
+    Wild: "Salvaje",
+    Hardworking: "Trabajador",
+    Dutiful: "Cumplidor",
+    Friendly: "Amigable",
+    Docile: "Dócil",
+    Responsive: "Responsivo",
+    Composed: "Compuesto",
+    Receptive: "Receptivo",
+    Faithful: "Fiel",
+    Loving: "Amoroso",
+    Trainable: "Adaptable",
+    Responsible: "Responsable",
+    Devoted: "Devoto",
+    Dominant: "Dominante",
+    Steady: "Estable",
+    Bold: "Atrevido",
+    Proud: "Orgulloso",
+    Cautious: "Precavido",
+    Eager: "Ansioso",
+    Spirited: "Enérgico",
+    Companionable: "Compañero",
+    Attentive: "Atento",
+    Rugged: "Accidentado",
+    Fierce: "Feroz",
+    Refined: "Refinado",
+    Lively: "Vivaz",
+    Agile: "Ágil",
+    Tenacious: "Tenaz",
+    Determined: "Decidido",
+    Hardy: "Resistente",
+    Fearless: "Valiente",
+    Feisty: "Luchador",
+    Cheerful: "Alegre",
+    Trusting: "Confiado",
+    Lovable: "Amable",
+    Keen: "Entusiasta",
+    Rational: "Racional",
+    Independent: "Independiente",
+    Intelligent: "Inteligente",
+    Loyal: "Leal",
+    Obedient: "Obediente",
+    Protective: "Protector",
+    Calm: "Calmo",
+    Gentle: "Amable",
+    Confident: "Confiado",
+    Assertive: "Asertivo",
+    Courageous: "Valiente",
+    Energetic: "Enérgico",
+    Social: "Social",
+    Territorial: "Territorial",
+    Vocal: "Vocal",
+    Brave: "Valiente",
+    Dignified: "Digno",
+    Kind: "Bondadoso",
+    Patient: "Paciente",
+    Sensitive: "Sensible",
+    Tolerant: "Tolerante",
+    Watchful: "Vigilante",
+    Easygoing: "De Trato Fácil",
+    EagerToPlease: "Ansioso Por Complacer",
+    Quick: "Rápido",
+    Bossy: "Mandón",
+    GoodTempered: "De Buen Carácter",
+    Outgoing: "Extrovertido",
+    Affectionate: "Cariñoso",
+    Vigilant: "Vigilante",
+  };
+
+  if (!temperament) {
+    return "TEMPERAMENTO NO REPORTADO";
+  }
+
+  const temperamentArray = temperament.split(",").map((term) => term.trim());
+  const translatedTemperament = temperamentArray.map(
+    (term) => translation[term] || term
+  );
+  return translatedTemperament.join(", ");
+};
+ 
+export default translateTemperament;
