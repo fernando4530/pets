@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Dropdown,
   DropdownButton,
@@ -8,9 +7,8 @@ import {
   Col,
   OverlayTrigger,
   Tooltip,
-  Form,
 } from "react-bootstrap";
-import {fetchDogBreeds,fetchCatBreeds} from "../utils/ApiCalls";
+import { fetchDogBreeds,fetchCatBreeds } from '../services/ApiCalls';
 
 const BreedLongevity = () => {
   const [dogBreeds, setDogBreeds] = useState([]);
@@ -48,7 +46,7 @@ const BreedLongevity = () => {
       "años"
     );
   };
-
+  
   const calculateCatAgeAverage = (age) => {
     const filteredCats = Object.values(catBreeds).filter(
       (breed) => breed.life_span === age
@@ -131,7 +129,7 @@ const BreedLongevity = () => {
       setFilteredCatBreeds({});
       setCatAgeAverage(0);
     }
-  }, [selectedCatAge, catBreeds]);
+  }, [selectedCatAge, catBreeds, calculateCatAgeAverage]);
 
   const renderDogTooltip = (breed) => (
     <Tooltip id={`dog-${breed.id}`}>

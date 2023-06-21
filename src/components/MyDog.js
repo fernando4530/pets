@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchDogBreeds } from "../utils/ApiCalls";
+import { fetchDogBreeds } from "../services/ApiCalls";
 import translateTemperament from "../utils/Traductions";
 import {
   Row,

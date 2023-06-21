@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import GoogleMapReact from "google-map-react";
-import { fetchDogBreeds } from "../utils/ApiCalls";
+import { fetchDogBreeds } from "../services/ApiCalls";
 
 function SearchDogs() {
   // Configuración inicial del mapa
@@ -49,7 +49,7 @@ function SearchDogs() {
 
     // Llama a la función fetchData al cargar el componente
     fetchData();
-  }, [fetchDogBreeds]);
+  }, []);
 
   const handleBreedSelect = (event) => {
     // Obtiene el valor seleccionado del elemento select de razas de perros
@@ -182,26 +182,37 @@ function SearchDogs() {
         </div>
         <h5 style={{ textDecoration: "underline" }}>Publicar</h5>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <select
-            value={selectedBreed}
-            onChange={handleBreedSelect}
-            className="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-          >
-            <option value="" className="btn btn-outline-primary">
-              Seleccione una raza
-            </option>
-            {/* Mapea las razas de perros y crea opciones en el select */}
-            {breeds.map((breed) => (
-              <option
-                key={breed.id}
-                value={breed.name}
-                className="btn btn-outline-primary"
-              >
-                {breed.name}
+          {showBreeds ? (
+              <select 
+              value={selectedBreed}
+              onChange={handleBreedSelect}
+              className="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option value="" className="btn btn-outline-primary">
+                Seleccione una raza
               </option>
-            ))}
-          </select>
+              {breeds.map((breed) => (
+                <option
+                  key={breed.id}
+                  value={breed.name}
+                  className="btn btn-outline-primary"
+                >
+                  {breed.name}
+                </option>
+              ))}
+            </select>
+            ) : (
+              <h1>No hay imágenes que cargar</h1>
+            )
+          }
+          
+          
+          
+          
+          
+          
+          
 
           <button onClick={handlePublish} className="btn btn-outline-primary">
             Publicar

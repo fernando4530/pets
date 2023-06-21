@@ -9,6 +9,7 @@ import BreedLongevity from "./components/BreedLongevity";
 import WeightComparison from "./components/WeightComparison";
 import CatsInfo from "./components/CatsInfo";
 import MyDog from "./components/MyDog";
+import LostCats from "./components/LostCats";
 import SearchDogs from "./components/SearchDogs";
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
             <Nav.Link as={NavLink} to="/mydog">
               Mi Perro
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/lostcats">
+              Gatos Extraviados
+            </Nav.Link>
             <Nav.Link as={NavLink} to="/searchdogs">
             Búsqueda y Publicación 
             </Nav.Link>
@@ -52,6 +56,7 @@ function App() {
         <Route path="/comparisionweight" element={<WeightComparison />} />
         <Route path="/catsinfo" element={<CatsInfo />} />
         <Route path="/mydog" element={<MyDog />} />
+        <Route path="/lostcats" element={<LostCats />} />
         <Route path="/searchdogs" element={<SearchDogs />} />
       </Routes>
     </div>

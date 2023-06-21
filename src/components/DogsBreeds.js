@@ -4,7 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
-import { fetchDogBreeds, fetchDogPhotos } from "../utils/ApiCalls";
+import { fetchDogBreeds, fetchDogPhotos } from "../services/ApiCalls";
 
 const Breeds = () => {
   const [breeds, setBreeds] = useState([]);
