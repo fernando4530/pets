@@ -8,7 +8,9 @@ import {
   Col,
   OverlayTrigger,
   Tooltip,
+  Form,
 } from "react-bootstrap";
+import {fetchDogBreeds,fetchCatBreeds} from "../utils/ApiCalls";
 
 const BreedLongevity = () => {
   const [dogBreeds, setDogBreeds] = useState([]);
@@ -72,28 +74,23 @@ const BreedLongevity = () => {
   };
 
   useEffect(() => {
-    const fetchDogBreeds = async () => {
-      try {
-        const response = await axios.get("https://api.thedogapi.com/v1/breeds");
-        setDogBreeds(response.data);
-        console.log("Razas de perros buscadas:", response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    fetchDogBreeds()
+      .then((data) => {
+        setDogBreeds(data);
+        console.log("Razas cargadas:", data);
+      })
+      .catch((error) => console.log(error));
+      fetchDogBreeds();
+  }, []);
 
-    const fetchCatBreeds = async () => {
-      try {
-        const response = await axios.get("https://api.thecatapi.com/v1/breeds");
-        setCatBreeds(response.data);
-        console.log("Razas de gatos buscadas:", response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchDogBreeds();
-    fetchCatBreeds();
+  useEffect(() => {
+    fetchCatBreeds()
+      .then((data) => {
+        setCatBreeds(data);
+        console.log("Razas cargadas:", data);
+      })
+      .catch((error) => console.log(error));
+      fetchCatBreeds();
   }, []);
 
   const handleDogAgeSelect = (age) => {
