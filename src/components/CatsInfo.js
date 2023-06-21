@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Nav, Tab } from 'react-bootstrap';
+import { fetchBreeds, fetchBreedImages } from '../services/ApiCalls';
 
 const CatsInfo = () => {
   const [catData, setCatData] = useState([]);
@@ -13,9 +14,8 @@ const CatsInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api.thecatapi.com/v1/breeds');
-        console.log(response);
-        setCatData(response.data);
+        const breeds = await fetchBreeds();
+        setCatData(breeds);
       } catch (error) {
         console.log(error);
       }
@@ -29,15 +29,13 @@ const CatsInfo = () => {
     setSelectedBreed(breedId);
 
     try {
-      const response = await axios.get(`https://api.thecatapi.com/v1/breeds/${breedId}`);
-      console.log(response.data);
-      if (response.data) {
-        setBreedDetails(response.data);
+      const breed = await fetchBreedDetails(breedId);
+      if (breed) {
+        setBreedDetails(breed);
         setError(false);
-        const imageResponse = await axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`);
-        console.log(imageResponse.data[0].url);
-        if (imageResponse.data && imageResponse.data.length > 0) {
-          setImageUrl(imageResponse.data[0].url);
+        const breedImages = await fetchBreedImages(breedId);
+        if (breedImages && breedImages.length > 0) {
+          setImageUrl(breedImages[0].url);
         } else {
           setImageUrl('');
         }
@@ -51,6 +49,16 @@ const CatsInfo = () => {
       setBreedDetails(null);
       setError(true);
       setImageUrl('');
+    }
+  };
+
+  const fetchBreedDetails = async (breedId) => {
+    try {
+      const response = await axios.get(`https://api.thecatapi.com/v1/breeds/${breedId}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   };
 

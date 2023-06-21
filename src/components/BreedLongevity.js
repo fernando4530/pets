@@ -9,6 +9,8 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import { fetchBreeds } from '../services/ApiCalls';
+
 
 const BreedLongevity = () => {
   const [dogBreeds, setDogBreeds] = useState([]);
@@ -84,9 +86,9 @@ const BreedLongevity = () => {
 
     const fetchCatBreeds = async () => {
       try {
-        const response = await axios.get("https://api.thecatapi.com/v1/breeds");
-        setCatBreeds(response.data);
-        console.log("Razas de gatos buscadas:", response.data);
+        const breeds = await fetchBreeds();
+        setCatBreeds(breeds);
+        console.log("Razas de gatos buscadas:", breeds);
       } catch (error) {
         console.error(error);
       }

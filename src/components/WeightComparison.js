@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { fetchBreeds, fetchBreedDetails } from '../services/ApiCalls';
 
 function WeightComparison() {
   const [catBreeds, setCatBreeds] = useState([]);
@@ -22,13 +23,11 @@ function WeightComparison() {
   const [heavierDogBreed, setHeavierDogBreed] = useState("");
 
   useEffect(() => {
-    axios
-      .get("https://api.thecatapi.com/v1/breeds")
-      .then((response) => {
-        setCatBreeds(response.data);
-        console.log("Razas de gatos cargadas:", response.data);
-      })
-      .catch((error) => console.log(error));
+    const loadBreeds = async () => {
+      const breeds = await fetchBreeds();
+      setCatBreeds(breeds);
+      console.log("Razas de gatos cargadas:", breeds);
+    };
 
     axios
       .get("https://api.thedogapi.com/v1/breeds")
@@ -37,6 +36,8 @@ function WeightComparison() {
         console.log("Razas de perros cargadas:", response.data);
       })
       .catch((error) => console.log(error));
+
+      loadBreeds();
   }, []);
 
   const handleCatBreed1Change = (event) => {
@@ -47,16 +48,15 @@ function WeightComparison() {
       (breed) => breed.name === event.target.value
     )?.id;
 
-    axios
-      .get(`https://api.thecatapi.com/v1/breeds/${selectedCatBreed1Id}`)
-      .then((response) => {
-        const weightRange = response.data.weight.metric.split(" - ");
-        const averageWeight = calculateAverageWeight(weightRange);
-        setCatBreed1Weight(averageWeight);
-        setSelectedCatBreed1(response.data);
-        console.log("Peso de la raza de gato 1:", averageWeight);
-      })
-      .catch((error) => console.log(error));
+    fetchBreedDetails(selectedCatBreed1Id)
+    .then((response) => {
+      const weightRange = response.data.weight.metric.split(" - ");
+      const averageWeight = calculateAverageWeight(weightRange);
+      setCatBreed1Weight(averageWeight);
+      setSelectedCatBreed1(response.data);
+      console.log("Peso de la raza de gato 1:", averageWeight);
+    })
+    .catch((error) => console.log(error));
   };
 
   const handleCatBreed2Change = (event) => {
@@ -67,8 +67,7 @@ function WeightComparison() {
       (breed) => breed.name === event.target.value
     )?.id;
 
-    axios
-      .get(`https://api.thecatapi.com/v1/breeds/${selectedCatBreed2Id}`)
+    fetchBreedDetails(selectedCatBreed2Id)
       .then((response) => {
         const weightRange = response.data.weight.metric.split(" - ");
         const averageWeight = calculateAverageWeight(weightRange);

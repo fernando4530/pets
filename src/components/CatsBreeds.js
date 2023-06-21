@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
+import { fetchBreeds, fetchBreedImages } from "../services/ApiCalls";
 
 const CatsBreeds = () => {
   const [breeds, setBreeds] = useState([]);
@@ -12,11 +12,10 @@ const CatsBreeds = () => {
   const [breedImages, setBreedImages] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://api.thecatapi.com/v1/breeds")
-      .then((response) => {
-        setBreeds(response.data);
-        console.log("Razas cargadas:", response.data);
+    fetchBreeds()
+      .then((breedsData) => {
+        setBreeds(breedsData);
+        console.log("Razas cargadas:", breedsData);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -25,17 +24,13 @@ const CatsBreeds = () => {
     setSelectedBreed(event.target.value);
     console.log("raza seleccionada:", event.target.value);
 
-    const selectedBreedId = breeds.find(
-      (breed) => breed.name === event.target.value
-    )?.id;
+    const selectedBreedId = breeds.find((breed) => breed.name === event.target.value)?.id;
     console.log("selectedBreedId:", selectedBreedId);
-    axios
-      .get(
-        `https://api.thecatapi.com/v1/images/search?limit=100&breed_id=${selectedBreedId}`
-      )
-      .then((response) => {
-        setBreedImages(response.data);
-        console.log("imagenes de razas cargadas:", response.data);
+
+    fetchBreedImages(selectedBreedId)
+      .then((imagesData) => {
+        setBreedImages(imagesData);
+        console.log("imagenes de razas cargadas:", imagesData);
       })
       .catch((error) => console.log(error));
   };
@@ -86,7 +81,7 @@ const CatsBreeds = () => {
                 </Card.Body>
               </Card>
             ) : (
-              <h1>Mo hay imagenes que cargar</h1>
+              <h1>No hay imágenes que cargar</h1>
             )}
           </div>
         </div>
