@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
+import { fetchDogBreeds, fetchDogPhotos } from "../services/ApiCalls";
 
 const Breeds = () => {
   const [breeds, setBreeds] = useState([]);
@@ -12,11 +12,10 @@ const Breeds = () => {
   const [breedImages, setBreedImages] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://api.thedogapi.com/v1/breeds")
-      .then((response) => {
-        setBreeds(response.data);
-        console.log("Razas cargadas:", response.data);
+    fetchDogBreeds()
+      .then((data) => {
+        setBreeds(data);
+        console.log("Razas cargadas:", data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -29,13 +28,11 @@ const Breeds = () => {
       (breed) => breed.name === event.target.value
     )?.id;
     console.log("selectedBreedId:", selectedBreedId);
-    axios
-      .get(
-        `https://api.thedogapi.com/v1/images/search?limit=100&breed_id=${selectedBreedId}`
-      )
-      .then((response) => {
-        setBreedImages(response.data);
-        console.log("imagenes de razas cargadas:", response.data);
+
+    fetchDogPhotos(selectedBreedId)
+      .then((data) => {
+        setBreedImages(data);
+        console.log("imagenes de razas cargadas:", data);
       })
       .catch((error) => console.log(error));
   };
@@ -86,7 +83,7 @@ const Breeds = () => {
                 </Card.Body>
               </Card>
             ) : (
-              <h1>Mo hay imagenes que cargar</h1>
+              <h1>No hay imágenes que cargar</h1>
             )}
           </div>
         </div>

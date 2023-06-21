@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import translateTemperament from "../utils/Traductions"; 
+import { fetchDogBreeds } from "../services/ApiCalls";
+import translateTemperament from "../utils/Traductions";
 import {
   Row,
   Col,
@@ -11,7 +11,6 @@ import {
   Button,
 } from "react-bootstrap";
 
-
 const MyDog = () => {
   const [breeds, setBreeds] = useState([]);
   const [selectedBreed, setSelectedBreed] = useState(null);
@@ -20,13 +19,12 @@ const MyDog = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Función para obtener las razas de perros
     const fetchBreeds = async () => {
       try {
-        const response = await axios.get("https://api.thedogapi.com/v1/breeds");
-        setBreeds(response.data);
+        const data = await fetchDogBreeds(); // Utiliza solo la función fetchDogBreeds desde ApiCall.js
+        setBreeds(data);
         setLoadingImage(false);
-        console.log("Breeds Response:", response.data);
+        console.log("Breeds Response:", data);
       } catch (error) {
         console.error(error);
         setError(
@@ -38,7 +36,6 @@ const MyDog = () => {
 
     fetchBreeds();
   }, []);
-
   const handleBreedHover = (breed) => {
     if (!clickedBreed) {
       setSelectedBreed(breed);
@@ -68,7 +65,6 @@ const MyDog = () => {
   useEffect(() => {
     console.log("Error:", error);
   }, [error]);
-
 
   return (
     <div className="text-center">

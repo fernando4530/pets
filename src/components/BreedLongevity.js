@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Dropdown,
   DropdownButton,
@@ -9,8 +8,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import { fetchBreeds } from '../services/ApiCalls';
-
+import { fetchDogBreeds,fetchCatBreeds } from '../services/ApiCalls';
 
 const BreedLongevity = () => {
   const [dogBreeds, setDogBreeds] = useState([]);
@@ -48,7 +46,7 @@ const BreedLongevity = () => {
       "años"
     );
   };
-
+  
   const calculateCatAgeAverage = (age) => {
     const filteredCats = Object.values(catBreeds).filter(
       (breed) => breed.life_span === age
@@ -74,28 +72,23 @@ const BreedLongevity = () => {
   };
 
   useEffect(() => {
-    const fetchDogBreeds = async () => {
-      try {
-        const response = await axios.get("https://api.thedogapi.com/v1/breeds");
-        setDogBreeds(response.data);
-        console.log("Razas de perros buscadas:", response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    fetchDogBreeds()
+      .then((data) => {
+        setDogBreeds(data);
+        console.log("Razas cargadas:", data);
+      })
+      .catch((error) => console.log(error));
+      fetchDogBreeds();
+  }, []);
 
-    const fetchCatBreeds = async () => {
-      try {
-        const breeds = await fetchBreeds();
-        setCatBreeds(breeds);
-        console.log("Razas de gatos buscadas:", breeds);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchDogBreeds();
-    fetchCatBreeds();
+  useEffect(() => {
+    fetchCatBreeds()
+      .then((data) => {
+        setCatBreeds(data);
+        console.log("Razas cargadas:", data);
+      })
+      .catch((error) => console.log(error));
+      fetchCatBreeds();
   }, []);
 
   const handleDogAgeSelect = (age) => {
@@ -136,7 +129,7 @@ const BreedLongevity = () => {
       setFilteredCatBreeds({});
       setCatAgeAverage(0);
     }
-  }, [selectedCatAge, catBreeds]);
+  }, [selectedCatAge, catBreeds, calculateCatAgeAverage]);
 
   const renderDogTooltip = (breed) => (
     <Tooltip id={`dog-${breed.id}`}>
